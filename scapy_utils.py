@@ -42,9 +42,9 @@ def arp_response(src: str, src_mac: str, dst: str, dst_mac: str, count=3, interv
             sleep(interval)
 
 
-def arp_request(unpack_iface: tuple, dst: str, retry=2, timeout=1) -> Optional[str]:
+def arp_request(unpacked_iface: tuple, dst: str, retry=2, timeout=1) -> Optional[str]:
     """ Sends an ARP request and attempts to return target's MAC address """
-    local_ip, local_mac = unpack_iface
+    local_ip, local_mac = unpacked_iface
     rsp = srp(l2.Ether(dst='ff:ff:ff:ff:ff:ff', src=local_mac) /
               l2.ARP(hwsrc=local_mac, psrc=local_ip,
                      hwdst='ff:ff:ff:ff:ff:ff', pdst=dst),
