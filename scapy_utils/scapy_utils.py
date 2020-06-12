@@ -25,8 +25,6 @@ def get_gw() -> tuple:
         x for x in conf.route.routes if x[2] != '0.0.0.0'][0][2:4]
     resp = arp_request(unpack_iface(iface), gw_ip)
     if not resp:
-        # prl('No ARP response received from supposed gateway!!', PRL_ERR)
-        # exit(5)
         raise TimeoutError('No ARP response received from supposed gateway!')
     return gw_ip, resp
 

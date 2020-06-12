@@ -5,8 +5,8 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scapy_utils",
-    version="0.3.2",
-    author="Max Grinberg",
+    version="0.3.3",
+    author="Max G",
     author_email="max3227@gmail.com",
     description="A collection of utility function for use with Scapy module.",
     long_description=long_description,
@@ -19,4 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.8',
+    install_requires=[
+        'scapy',
+    ]
 )
