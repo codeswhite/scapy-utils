@@ -5,13 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scapy_utils",
-    version="0.3.3",
+    version="0.3.4",
     author="Max G",
     author_email="max3227@gmail.com",
     description="A collection of utility function for use with Scapy module.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # url="https://github.com/pypa/sampleproject",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
