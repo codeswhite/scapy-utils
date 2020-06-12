@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scapy_utils",
-    version="0.3.4",
+    version="0.3.5",
     author="Max G",
     author_email="max3227@gmail.com",
     description="A collection of utility function for use with Scapy module.",
