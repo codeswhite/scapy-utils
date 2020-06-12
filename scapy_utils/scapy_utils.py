@@ -23,7 +23,7 @@ def get_gw() -> tuple:
     """ Return tuple(gateway_IP: IPv4Addreess, gateway_MAC: str) """
     gw_ip, iface = [
         x for x in conf.route.routes if x[2] != '0.0.0.0'][0][2:4]
-    resp = arp_request(unpack_iface(iface), gw_ip)
+    resp = arp_request(iface, gw_ip)
     if not resp:
         raise TimeoutError('No ARP response received from supposed gateway!')
     return gw_ip, resp
@@ -40,9 +40,9 @@ def arp_response(src: str, src_mac: str, dst: str, dst_mac: str, count=3, interv
             sleep(interval)
 
 
-def arp_request(unpacked_iface: tuple, dst: str, retry=2, timeout=1) -> Optional[str]:
+def arp_request(iface: str, dst: str, retry=2, timeout=1) -> Optional[str]:
     """ Sends an ARP request and attempts to return target's MAC address """
-    local_ip, local_mac = unpacked_iface
+    local_ip, local_mac = unpack_iface(iface)
     rsp = srp(l2.Ether(dst='ff:ff:ff:ff:ff:ff', src=local_mac) /
               l2.ARP(hwsrc=local_mac, psrc=local_ip,
                      hwdst='ff:ff:ff:ff:ff:ff', pdst=dst),
