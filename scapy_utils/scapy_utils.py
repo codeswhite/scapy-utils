@@ -1,17 +1,10 @@
 # coding=utf-8
 
-"""
-    A collection of utility function for use with Scapy module.
-
-    ~ CodesWhite (aka WhiteCode) @ 2017
-"""
-
 from time import sleep
 from typing import Optional
 
-from scapy.sendrecv import sendp, srp, conf  # Try to load scapy
-# from scapy.layers.l2 import Ether, ARP, get_if_hwaddr, get_if_addr
-from scapy.layers import l2
+from scapy.sendrecv import sendp, srp, sr1, conf  # Try to load scapy
+from scapy.layers import l2, inet
 
 
 def unpack_iface(iface: str) -> tuple:
@@ -50,3 +43,16 @@ def arp_request(iface: str, dst: str, retry=2, timeout=1) -> Optional[str]:
     if not rsp[0]:
         return
     return rsp[0][0][1]['ARP'].hwsrc
+
+def icmp(dst: str, count=1, timeout=2) -> int:
+    """
+    Send an ICMP ping
+
+    Returns: count of responses
+    """
+    c = 0
+    for i in range(count):
+        packet = inet.IP(dst=dst)/inet.ICMP(seq=i)
+        if sr1(packet, timeout=2) is not None:
+            c += 1
+    return c
