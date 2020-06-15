@@ -44,7 +44,8 @@ def arp_request(iface: str, dst: str, retry=2, timeout=1) -> Optional[str]:
         return
     return rsp[0][0][1]['ARP'].hwsrc
 
-def icmp(dst: str, count=1, timeout=2) -> int:
+
+def icmp(dst: str, count=1, timeout=2, verbose=False) -> int:
     """
     Send an ICMP ping
 
@@ -53,6 +54,6 @@ def icmp(dst: str, count=1, timeout=2) -> int:
     c = 0
     for i in range(count):
         packet = inet.IP(dst=dst)/inet.ICMP(seq=i)
-        if sr1(packet, timeout=2) is not None:
+        if sr1(packet, timeout=2, verbose=verbose) is not None:
             c += 1
     return c
